@@ -1,32 +1,35 @@
 {
   "language": {
-    "select": "ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ"
+    "select": "Select Language"
   },
   "order": {
-    "create": "ಆರ್ಡರ್ ರಚಿಸಿ",
-    "room": "ಕೊಠಡಿ ಸಂಖ್ಯೆ",
-    "phone": "ದೂರವಾಣಿ ಸಂಖ್ಯೆ",
-    "next": "ಮುಂದೆ"
+    "create": "Create Order",
+    "room": "Room Number",
+    "phone": "Phone Number",
+    "next": "Next"
   },
   "cart": {
-    "title": "ಬಟ್ಟೆಗಳನ್ನು ಸೇರಿಸಿ",
-    "total": "ಒಟ್ಟು"
+    "title": "Add Clothes",
+    "total": "Total"
   },
   "items": {
-    "tshirt": "ಟಿ-ಶರ್ಟ್",
-    "jeans": "ಜೀನ್ಸ್",
-    "bedsheet": "ಹಾಸಿಗೆ ಚಾದರ"
+    "tshirt": "T-Shirt",
+    "jeans": "Jeans",
+    "bedsheet": "Bedsheet"
   },
   "summary": {
-    "title": "ಆರ್ಡರ್ ಸಾರಾಂಶ",
-    "confirm": "ಆರ್ಡರ್ ದೃಢೀಕರಿಸಿ",
-    "report": "ದೈನಂದಿನ ವರದಿ ವೀಕ್ಷಿಸಿ"
+    "title": "Order Summary",
+    "confirm": "Confirm Order",
+    "report": "View Daily Report"
   },
   "report": {
-    "title": "ದೈನಂದಿನ ವರದಿ",
-    "room": "ಕೊಠಡಿ",
-    "phone": "ದೂರವಾಣಿ",
-    "items": "ವಸ್ತುಗಳು",
-    "amount": "ಮೊತ್ತ"
-  }
+    "title": "Daily Report",
+    "room": "Room",
+    "phone": "Phone",
+    "items": "Items",
+    "amount": "Amount"
+  },
+  "whatsapp": {
+  "ready": "Hello! Your laundry for room {{room}} is ready for collection."
+}
 }

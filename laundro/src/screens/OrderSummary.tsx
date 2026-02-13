@@ -1,47 +1,45 @@
+import { useState } from 'react'
 import Button from '../components/Button'
+import { createOrder } from '../services/orderService'
 import { useTranslation } from 'react-i18next'
-import type { Customer, LaundryItem } from '../types/order'
+import type { Customer, OrderItem } from '../types/order'
 
 type Props = {
   customer: Customer
-  items: LaundryItem[]
+  items: OrderItem[]
   total: number
-  onViewReport?: () => void
+  onSuccess?: () => void
 }
 
 export default function OrderSummary({
   customer,
   items,
   total,
-  onViewReport
+  onSuccess
 }: Props) {
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(false)
+
+  const handleConfirm = async () => {
+    if (!customer || items.length === 0) return
+
+    try {
+      setLoading(true)
+      await createOrder(customer, items, total)
+      alert('Order saved successfully')
+      onSuccess?.()
+    } catch (error) {
+      console.error(error)
+      alert('Failed to save order. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-    <div>
-      <h2>{t('summary.title')}</h2>
-
-      <p>{t('order.room')}: {customer.roomNumber}</p>
-      <p>{t('order.phone')}: {customer.phone}</p>
-
-      {items
-        .filter(i => i.quantity > 0)
-        .map(item => (
-          <p key={item.id}>
-            {t(`items.${item.id}`)} × {item.quantity}
-          </p>
-        ))}
-
-      <h3>{t('cart.total')}: ₹{total}</h3>
-
-      <Button label={t('summary.confirm')} onClick={() => alert('Saved')} />
-
-      {onViewReport && (
-        <Button
-          label={t('summary.report')}
-          onClick={onViewReport}
-        />
-      )}
-    </div>
+    <Button
+      label={loading ? 'Saving...' : t('summary.confirm')}
+      onClick={handleConfirm}
+    />
   )
 }

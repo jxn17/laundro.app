@@ -1,6 +1,6 @@
-import type { Order } from '../types/order'
+import type { OrderWithId } from '../types/order'
 
-export const mockDailyOrders: Order[] = [
+export const mockDailyOrders: OrderWithId[] = [
   {
     id: 'o1',
     customer: {
@@ -8,23 +8,11 @@ export const mockDailyOrders: Order[] = [
       phone: '9876543210'
     },
     items: [
-      { id: '1', name: 'T-Shirt', price: 20, quantity: 3 },
-      { id: '2', name: 'Jeans', price: 40, quantity: 1 }
+      { id: 'tshirt', quantity: 3, price: 20 },
+      { id: 'jeans', quantity: 1, price: 40 }
     ],
     total: 100,
-    createdAt: new Date()
-  },
-  {
-    id: 'o2',
-    customer: {
-      roomNumber: 'A-101',
-      phone: '9123456780'
-    },
-    items: [
-      { id: '1', name: 'T-Shirt', price: 20, quantity: 2 },
-      { id: '3', name: 'Bedsheet', price: 30, quantity: 1 }
-    ],
-    total: 70,
+    status: 'WASHING',
     createdAt: new Date()
   }
 ]

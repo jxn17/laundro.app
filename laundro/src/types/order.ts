@@ -1,8 +1,9 @@
-export type LaundryItem = {
+export type OrderStatus = 'WASHING' | 'READY' | 'PAID'
+
+export type OrderItem = {
   id: string
-  name: string
-  price: number
   quantity: number
+  price: number
 }
 
 export type Customer = {
@@ -11,11 +12,13 @@ export type Customer = {
 }
 
 export type Order = {
-  id: string
   customer: Customer
-  items: LaundryItem[]
+  items: OrderItem[]
   total: number
+  status: OrderStatus
+  ownerId: string
   createdAt: Date
 }
-
-
+export type OrderWithId = Order & {
+  id: string
+}

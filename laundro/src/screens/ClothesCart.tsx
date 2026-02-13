@@ -2,10 +2,10 @@ import { useCart } from '../hooks/useCart'
 import QuantitySelector from '../components/QuantitySelector'
 import Button from '../components/Button'
 import { useTranslation } from 'react-i18next'
-import type { LaundryItem } from '../types/order'
+import type { OrderItem } from '../types/order'
 
 type Props = {
-  onNext: (items: LaundryItem[], total: number) => void
+  onNext: (items: OrderItem[], total: number) => void
 }
 
 export default function ClothesCart({ onNext }: Props) {

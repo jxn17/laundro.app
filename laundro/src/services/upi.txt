@@ -1,0 +1,19 @@
+import type { OrderWithId } from '../types/order'
+
+const UPI_ID = 'smruthik1234@okaxis'        // change this
+const BUSINESS_NAME = 'Smruthik R Minor'
+
+export function openUpiPayment(order: OrderWithId) {
+  const amount = order.total
+  const note = `Laundry payment - Room ${order.customer.roomNumber}`
+
+  const url =
+    `upi://pay` +
+    `?pa=${encodeURIComponent(UPI_ID)}` +
+    `&pn=${encodeURIComponent(BUSINESS_NAME)}` +
+    `&am=${amount}` +
+    `&cu=INR` +
+    `&tn=${encodeURIComponent(note)}`
+
+  window.open(url, '_blank')
+}

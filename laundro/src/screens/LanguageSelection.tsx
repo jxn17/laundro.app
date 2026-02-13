@@ -1,25 +1,20 @@
-import { useTranslation } from 'react-i18next'
-
 type Props = {
   onSelect: () => void
 }
 
 export default function LanguageSelection({ onSelect }: Props) {
-  const { t, i18n } = useTranslation()
-
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang)
+  const selectLanguage = (lang: string) => {
     localStorage.setItem('lang', lang)
     onSelect()
   }
 
   return (
     <div>
-      <h2>{t('language.select')}</h2>
+      <h2>Choose a language</h2>
 
-      <button onClick={() => changeLanguage('en')}>English</button>
-      <button onClick={() => changeLanguage('hi')}>हिंदी</button>
-      <button onClick={() => changeLanguage('kn')}>ಕನ್ನಡ</button>
+      <button onClick={() => selectLanguage('en')}>English</button>
+      <button onClick={() => selectLanguage('hi')}>हिंदी</button>
+      <button onClick={() => selectLanguage('kn')}>ಕನ್ನಡ</button>
     </div>
   )
 }
