@@ -28,25 +28,16 @@ export async function createOrder(
     throw new Error('Not authenticated')
   }
 
-  const order: Omit<Order, 'createdAt'> & { createdAt: any } = {
-    customer,
-    items,
-    total,
-    status: 'WASHING',
-    ownerId: user.uid, // 🔥 SaaS key
-    createdAt: serverTimestamp()
-  }
-
   await addDoc(
-  collection(db, 'users', user.uid, 'orders'),
-  {
-    customer,
-    items,
-    total,
-    status: 'WASHING',
-    createdAt: serverTimestamp()
-  }
-)
+    collection(db, 'users', user.uid, 'orders'),
+    {
+      customer,
+      items,
+      total,
+      status: 'WASHING',
+      createdAt: serverTimestamp()
+    }
+  )
 }
 
 // UPDATE STATUS

@@ -1,45 +1,50 @@
-import { useState } from 'react'
-import Button from '../components/Button'
-import { createOrder } from '../services/orderService'
-import { useTranslation } from 'react-i18next'
-import type { Customer, OrderItem } from '../types/order'
+import type { Customer, OrderItem } from "../types/order"
 
 type Props = {
   customer: Customer
   items: OrderItem[]
-  total: number
-  onSuccess?: () => void
+  onConfirm: () => void
+  onBack: () => void
 }
 
 export default function OrderSummary({
   customer,
   items,
-  total,
-  onSuccess
+  onConfirm,
+  onBack
 }: Props) {
-  const { t } = useTranslation()
-  const [loading, setLoading] = useState(false)
 
-  const handleConfirm = async () => {
-    if (!customer || items.length === 0) return
-
-    try {
-      setLoading(true)
-      await createOrder(customer, items, total)
-      alert('Order saved successfully')
-      onSuccess?.()
-    } catch (error) {
-      console.error(error)
-      alert('Failed to save order. Please try again.')
-    } finally {
-      setLoading(false)
-    }
-  }
+  const total = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  )
 
   return (
-    <Button
-      label={loading ? 'Saving...' : t('summary.confirm')}
-      onClick={handleConfirm}
-    />
+    <div>
+      <h2>Order Summary</h2>
+
+      <h3>Customer</h3>
+      <p>Room: {customer.roomNumber}</p>
+      <p>Phone: {customer.phone}</p>
+
+      <h3>Items</h3>
+      {items.map(item => (
+        <div key={item.id}>
+          {item.id} × {item.quantity} = ₹{item.price * item.quantity}
+        </div>
+      ))}
+
+      <h3>Total: ₹{total}</h3>
+
+      <div style={{ marginTop: 20, display: "flex", gap: 10 }}>
+        <button onClick={onBack}>
+          Back
+        </button>
+
+        <button onClick={onConfirm}>
+          Confirm Order
+        </button>
+      </div>
+    </div>
   )
 }

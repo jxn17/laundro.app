@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 import { getUserProfile, saveUserProfile } from '../services/userService'
 import { auth } from '../services/firebase'
+import { signOut } from "firebase/auth"
 
-type Props = {
-  onBack: () => void
-}
 
-export default function Settings({ onBack }: Props) {
+export default function Settings() {
   const [businessName, setBusinessName] = useState('')
   const [upiId, setUpiId] = useState('')
   const [loading, setLoading] = useState(false)
@@ -53,7 +51,6 @@ export default function Settings({ onBack }: Props) {
       })
 
       alert('Settings saved!')
-      onBack()
     } catch (error) {
       alert('Failed to save settings')
     } finally {
@@ -61,10 +58,10 @@ export default function Settings({ onBack }: Props) {
     }
   }
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <p style={{ padding: 20 }}>Loading...</p>
 
   return (
-    <div style={{ padding: 20, maxWidth: 400 }}>
+    <div style={{ padding: 20 }}>
       <h2 style={{ marginBottom: 20 }}>Business Settings</h2>
 
       <div style={{ marginBottom: 12 }}>
@@ -90,13 +87,26 @@ export default function Settings({ onBack }: Props) {
         <button
           onClick={handleSave}
           disabled={saving}
-          style={{ marginRight: 10 }}
         >
           {saving ? 'Saving...' : 'Save'}
         </button>
-
-        <button onClick={onBack}>
-          Back
+        <button
+        style={{
+            marginTop: 20,
+            background: "#ef4444",
+            color: "white",
+            padding: "8px 16px",
+            border: "none",
+            borderRadius: 6,
+            cursor: "pointer"
+        }}
+        onClick={async () => {
+            const ok = window.confirm("Logout?")
+            if (!ok) return
+            await signOut(auth)
+        }}
+        >
+        Logout
         </button>
       </div>
     </div>

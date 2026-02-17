@@ -5,22 +5,35 @@ import { useTranslation } from 'react-i18next'
 import type { OrderItem } from '../types/order'
 
 type Props = {
-  onNext: (items: OrderItem[], total: number) => void
+  onNext: (items: OrderItem[]) => void
+  onBack: () => void
 }
 
-export default function ClothesCart({ onNext }: Props) {
+export default function ClothesCart({ onNext, onBack }: Props) {
   const { t } = useTranslation()
-  const { items, total, increment, decrement } = useCart()
+  const { items, increment, decrement } = useCart()
+
+  const handleNext = () => {
+    const selectedItems = items.filter(i => i.quantity > 0)
+
+    if (selectedItems.length === 0) {
+      alert("Please select at least one item")
+      return
+    }
+
+    onNext(selectedItems)
+  }
 
   return (
     <div>
-      <h2>{t('cart.title')}</h2>
+      <h2>{t('cart.title') || "Add Clothes"}</h2>
 
       {items.map(item => (
         <div key={item.id}>
           <span>
             {t(`items.${item.id}`)} ₹{item.price}
           </span>
+
           <QuantitySelector
             quantity={item.quantity}
             onIncrement={() => increment(item.id)}
@@ -29,9 +42,10 @@ export default function ClothesCart({ onNext }: Props) {
         </div>
       ))}
 
-      <h3>{t('cart.total')}: ₹{total}</h3>
-
-      <Button label={t('order.next')} onClick={() => onNext(items, total)} />
+      <div style={{ marginTop: 20, display: "flex", gap: 10 }}>
+        <button onClick={onBack}>Back</button>
+        <Button label="Next" onClick={handleNext} />
+      </div>
     </div>
   )
 }
